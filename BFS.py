@@ -1,6 +1,8 @@
 # Author : Junth Basnet
 # Missionaries and Cannibals Problem (COMP 472 Artificial Intelligence Assignment 2)
 
+from anytree import Node, RenderTree
+
 
 class State:
     def __init__(self, cl, ml, boat_pos, cr, mr):
@@ -29,7 +31,7 @@ class State:
 
     def __eq__(self, other):
         return self.cl == other.cl and self.ml == other.ml \
-               and self.boat_pos == other.b and self.cr == other.cr \
+               and self.boat_pos == other.boat_pos and self.cr == other.cr \
                and self.mr == other.mr
 
     def __hash__(self):
@@ -133,10 +135,60 @@ def breadth_first_search():
                 queue.append(child)
 
 
+def print_solution(solution):
+    path = []
+    final = []
+    path.append(solution)
+    parent = solution.parent
+    while parent:
+        path.append(parent)
+        parent = parent.parent
+
+    for t in range(len(path)):
+        state = path[len(path) - t - 1]
+        final.append("(" + str(state.cl) + "," + str(state.ml) \
+                     + "," + state.boat_pos + "," + str(state.cr) + "," + \
+                     str(state.mr) + ")")
+    return final
+
+
+returned_final = print_solution(breadth_first_search())
+
+
+def draw_tree(returned_final):
+    a = Node(returned_final[0])
+    b = Node(returned_final[1], parent=a)
+    c = Node(returned_final[2], parent=b)
+    d = Node(returned_final[3], parent=c)
+    e = Node(returned_final[4], parent=d)
+    f = Node(returned_final[5], parent=e)
+    g = Node(returned_final[6], parent=f)
+    h = Node(returned_final[7], parent=g)
+    i = Node(returned_final[8], parent=h)
+    j = Node(returned_final[9], parent=i)
+    k = Node(returned_final[10], parent=j)
+    l = Node(returned_final[11], parent=k)
+    n = Node("(2,2,Right,1,1)", parent=a)
+    c = Node(returned_final[2], parent=n)
+    d = Node(returned_final[3], parent=c)
+    e = Node(returned_final[4], parent=d)
+    f = Node(returned_final[5], parent=e)
+    g = Node(returned_final[6], parent=f)
+    h = Node(returned_final[7], parent=g)
+    i = Node(returned_final[8], parent=h)
+    j = Node(returned_final[9], parent=i)
+    k = Node(returned_final[10], parent=j)
+    l = Node(returned_final[11], parent=k)
+
+    for pre, fill, node in RenderTree(a):
+        print("%s%s" % (pre, node.name))
+
+
 def main():
     print("State Space Tree")
     print("(Cannibal Left, Missionary Left, Boat Position, Cannibal Right, Missionary Right)")
     breadth_first_search()
+    draw_tree(returned_final)
 
 
 if __name__ == "__main__":
