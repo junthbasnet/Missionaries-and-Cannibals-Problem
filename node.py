@@ -13,9 +13,9 @@ class Node:
         if self.is_killed():
             color = "red"
         elif self.goal_test():
-            color = "gold"
-        else:
             color = "green"
+        else:
+            color = "orange"
         self.graph_node = pydot.Node(str(self), style="filled", fillcolor=color)
         Node.num_of_instances += 1
 

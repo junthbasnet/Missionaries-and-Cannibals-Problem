@@ -6,7 +6,6 @@ from collections import deque
 
 
 def bfs(initial_state, mode="BFS"):
-
     graph = pydot.Dot(graph_type='digraph', label="Missionaries and Cannibals (BFS)", fontsize="30", color="red",
                       fontcolor="black", fontname='Arsenal', fillcolor="black")
     start_node = Node(initial_state, None, None, 0)
@@ -32,7 +31,9 @@ def bfs(initial_state, mode="BFS"):
             diff = np.subtract(node.parent.state, node.state)
             if node.parent.state[2] == 0:
                 diff[0], diff[1] = -diff[0], -diff[1]
-            graph.add_edge(pydot.Edge(node.parent.graph_node, node.graph_node, label=str(diff)))
+            graph.add_edge(
+                pydot.Edge(node.parent.graph_node, node.graph_node, label=str(diff[0]) + "M  " + str(diff[1]) + "C",
+                           fontsize='10', fontcolor='#cc0099'))
         children = node.generate_child()
         if not node.is_killed():
             print("The children nodes of this node are", end="")
@@ -47,7 +48,8 @@ def bfs(initial_state, mode="BFS"):
                         if child.parent.state[2] == 0:
                             diff[0], diff[1] = -diff[0], -diff[1]
 
-                        graph.add_edge(pydot.Edge(child.parent.graph_node, child.graph_node, label=str(diff)))
+                        graph.add_edge(pydot.Edge(child.parent.graph_node, child.graph_node, fontsize='10',
+                                                  label=str(diff[0]) + "M  " + str(diff[1]) + "C", fontcolor="#cc0099"))
 
                         # colour all leaves blue
                         leafs = {n.get_name(): True for n in graph.get_nodes()}
@@ -86,13 +88,13 @@ def draw_legend(graph):
     legend4 = pydot.Node('Goal State', shape="plaintext", fontname='Arsenal', fontsize="20")
     graphlegend.add_node(legend4)
 
-    node1 = pydot.Node("1", style="filled", fillcolor="green", label="")
+    node1 = pydot.Node("1", style="filled", fillcolor="orange", label="")
     graphlegend.add_node(node1)
     node2 = pydot.Node("2", style="filled", fillcolor="red", label="")
     graphlegend.add_node(node2)
     node3 = pydot.Node("3", style="filled", fillcolor="blue", label="")
     graphlegend.add_node(node3)
-    node4 = pydot.Node("4", style="filled", fillcolor="gold", label="")
+    node4 = pydot.Node("4", style="filled", fillcolor="green", label="")
     graphlegend.add_node(node4)
 
     graph.add_subgraph(graphlegend)
@@ -107,7 +109,7 @@ def draw_legend(graph):
 
 def dfs(initial_state):
     graph = pydot.Dot(graph_type='digraph', label=" Missionaries and Cannibals (DFS) ", color="yellow",
-                      fontcolor="black", style="filled", fillcolor="blue")
+                      fontcolor="black", fontname='Arsenal', style="filled", fillcolor="blue", fontsize="30")
     start_node = Node(initial_state, None, None, 0)
     if start_node.goal_test():
         return start_node.find_solution()
@@ -116,33 +118,38 @@ def dfs(initial_state):
     frontier.append(start_node)
     explored = []
     killed = []
-    print("The starting node is \ndepth=%d" % start_node.depth)
+
+    print("The starting node is \nDepth=%d" % start_node.depth)
     print(str(start_node.state))
-    while (frontier.__len__() > 0):
+    while frontier:
         node = frontier.pop()
-        print("\nthe node selected to expand is\ndepth=" + str(node.depth) + "\n" + str(node.state) + "\n")
+        print("\nThe node selected to expand is\nDepth=" + str(node.depth) + "\n" + str(node.state) + "\n")
         explored.append(node.state)
         graph.add_node(node.graph_node)
+
         if node.parent:
             diff = np.subtract(node.parent.state, node.state)
             if node.parent.state[2] == 0:
                 diff[0], diff[1] = -diff[0], -diff[1]
-            graph.add_edge(pydot.Edge(node.parent.graph_node, node.graph_node, label=str(diff)))
+            graph.add_edge(
+                pydot.Edge(node.parent.graph_node, node.graph_node, label=str(diff[0]) + "M  " + str(diff[1]) + "C",
+                           fontsize='10', fontcolor='#cc0099'))
         children = node.generate_child()
         if not node.is_killed():
-            print("the children nodes of this node are", end="")
+            print("The children nodes of this node are", end="")
             for child in children:
                 if child.state not in explored:
-                    print("\ndepth=%d" % child.depth)
+                    print("\nDepth=%d" % child.depth)
                     print(str(child.state))
                     if child.goal_test():
                         print("which is the goal state\n")
                         graph.add_node(child.graph_node)
-                        diff = np.subtract(node.parent.state, node.state)
-                        if node.parent.state[2] == 0:
+                        diff = np.subtract(child.parent.state, child.state)
+                        if child.parent.state[2] == 0:
                             diff[0], diff[1] = -diff[0], -diff[1]
 
-                        graph.add_edge(pydot.Edge(child.parent.graph_node, child.graph_node, label=str(diff)))
+                        graph.add_edge(pydot.Edge(child.parent.graph_node, child.graph_node, fontsize='10',
+                                                  label=str(diff[0]) + "M  " + str(diff[1]) + "C", fontcolor="#cc0099"))
 
                         # colour all leaves blue
                         leafs = {n.get_name(): True for n in graph.get_nodes()}
