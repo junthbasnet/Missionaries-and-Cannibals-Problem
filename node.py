@@ -45,8 +45,8 @@ class Node:
         if cannibals > missionaries > 0:
             return True
         # Check for the other side
-        if cannibals < missionaries < 3:
-            return True
+        # if cannibals < missionaries < 3:
+        #     return True
 
     def generate_child(self):
         # children = []
@@ -75,85 +75,99 @@ class Node:
 
         if boat_position == 1:
             """0M 1C"""
-            action = [0, 1]
-            new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 1 <= cannibal <= 3:
+                action = [0, 1]
+                new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """0M 2C"""
-            action = [0, 2]
-            new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 2 <= cannibal <= 3:
+                action = [0, 2]
+                new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """1M 0C"""
-            action = [1, 0]
-            new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 1 <= missionary <= 3:
+                action = [1, 0]
+                new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """1M 1C"""
-            action = [1, 1]
-            new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 1 <= missionary <= 3 and 1 <= cannibal <= 3:
+                action = [1, 1]
+                new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """2M OC"""
-            action = [2, 0]
-            new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 2 <= missionary <= 3:
+                action = [2, 0]
+                new_state_0, new_state_1, new_state_2 = missionary - action[0], cannibal - action[1], 0
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
         if boat_position == 0:
+
+            missionaryR = 3 - missionary
+            cannibalR = 3 - cannibal
+
             """0M 1C"""
-            action = [0, 1]
-            new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 1 <= cannibalR <= 3:
+                action = [0, 1]
+                new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """0M 2C"""
-            action = [0, 2]
-            new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 2 <= cannibalR <= 3:
+                action = [0, 2]
+                new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """1M 0C"""
-            action = [1, 0]
-            new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 1 <= missionaryR <= 3:
+                action = [1, 0]
+                new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """1M 1C"""
-            action = [1, 1]
-            new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 1 <= missionaryR <= 3 and 1 <= cannibalR <= 3:
+                action = [1, 1]
+                new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
             """2M 0C"""
-            action = [2, 0]
-            new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
-            new_state = [new_state_0, new_state_1, new_state_2]
-            new_node = Node(new_state, self, action, depth)
-            # if check_validity(new_state):
-            children.append(new_node)
+            if 2 <= missionaryR <= 3:
+                action = [2, 0]
+                new_state_0, new_state_1, new_state_2 = missionary + action[0], cannibal + action[1], 1
+                new_state = [new_state_0, new_state_1, new_state_2]
+                new_node = Node(new_state, self, action, depth)
+                # if check_validity(new_state):
+                children.append(new_node)
 
         return children
 
@@ -167,22 +181,3 @@ class Node:
         # solution = solution[:-1]
         solution.reverse()
         return solution
-
-
-def check_validity(node):
-    """
-    if node.boatPos==0:
-        return (node.missionary>=node.cannibal)&(node.cannibal>=0)&(node.missionary>=0)
-    if node.boatPos==1:
-        return (node.missionary<=3)&(node.cannibal<=3)&(node.missionary>=node.cannibal)&(3-node.missionary<=3-node.cannibal)
-    """
-
-    missionary = node[0]
-    cannibal = node[1]
-    if missionary >= 0 and (3 - missionary) >= 0 \
-            and cannibal >= 0 and (3 - cannibal) >= 0 \
-            and (missionary == 0 or missionary >= cannibal) \
-            and ((3 - missionary) == 0 or (3 - missionary) >= (3 - cannibal)):
-        return True
-    else:
-        return False
