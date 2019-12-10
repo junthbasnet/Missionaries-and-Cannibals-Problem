@@ -33,7 +33,6 @@ def bfs(initial_state, mode="BFS"):
                 pydot.Edge(node.parent.graph_node, node.graph_node, label=str(diff[0]) + "M  " + str(diff[1]) + "C",
                            fontsize='10', fontcolor='#cc0099'))
         children = node.generate_child()
-
         if not node.is_killed():
             print("The children nodes of this node are", end="")
 
