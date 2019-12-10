@@ -1,6 +1,6 @@
 from time import time
-from SearchAlgorithm import bfs
-from SearchAlgorithm import dfs
+from BFS_MC import bfs
+from DFS_MC import dfs
 from node import Node
 
 initial_state = [3, 3, 1]

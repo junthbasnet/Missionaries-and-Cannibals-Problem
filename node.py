@@ -62,7 +62,7 @@ class Node:
                     2] + op * 1
                 action = [x, y, op]
                 new_node = Node(new_state, self, action, depth)
-                if x + y >= 1 and x + y <= 2:
+                if 1 <= x + y <= 2:
                     children.append(new_node)
         return children
 
