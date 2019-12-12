@@ -171,13 +171,13 @@ class Node:
 
         return children
 
-    def find_solution(self):
+    def find_action_sequence(self):
         solution = []
         solution.append(self.action)
         path = self
         while path.parent is not None:
             path = path.parent
             solution.append(path.action)
-        # solution = solution[:-1]
+        solution = solution[:-1]
         solution.reverse()
         return solution

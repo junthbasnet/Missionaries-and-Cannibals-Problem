@@ -9,7 +9,7 @@ def bfs(initial_state, mode="BFS"):
                       fontcolor="black", fontname='Arsenal', fillcolor="black")
     start_node = Node(initial_state, None, None, 0)
     if start_node.goal_test():
-        return start_node.find_solution()
+        return start_node.find_action_sequence()
 
     frontier = [start_node]
     explored = []
@@ -33,9 +33,10 @@ def bfs(initial_state, mode="BFS"):
             children = node.generate_child()
 
             for child in children:
-                if child.state not in explored:
-                    if child.goal_test():
 
+                if child.state not in explored:
+
+                    if child.goal_test():
                         graph.add_node(child.graph_node)
                         diff = np.subtract(child.parent.state, child.state)
                         if child.parent.state[2] == 0:
@@ -55,13 +56,12 @@ def bfs(initial_state, mode="BFS"):
                         draw_legend(graph)
                         graph.write_png('MC_BFS.png')
 
-                        return child.find_solution()
+                        return child.find_action_sequence()
                     if child.is_valid():
                         frontier.append(child)
                         explored.append(child.state)
 
         else:
-            print("This node is killed")
             killed.append("\"" + str(node.state) + "\"")
 
     return
