@@ -15,8 +15,14 @@ def dfs(initial_state):
     explored = []
     killed = []
 
+    print("\nInitial State: {0}    |   Depth: {1}".format(start_node.state, start_node.depth))
+
     while frontier:
         node = frontier.pop()
+
+        print("-------------------------------------------------------------------")
+        print("Exploring State: {0}    |    Depth: {1}".format(node.state, node.depth))
+
         explored.append(node.state)
         graph.add_node(node.graph_node)
 
@@ -31,12 +37,15 @@ def dfs(initial_state):
         if not node.is_killed():
 
             children = node.generate_child()
+            print("Children States of {0} are as follows: ".format(node.state))
 
             for child in children:
 
                 if child.state not in explored:
+                    print("{0}      |       Depth: {1}".format(child.state, child.depth))
 
                     if child.goal_test():
+                        print("************************** Goal State Found! ****************************")
                         graph.add_node(child.graph_node)
                         diff = np.subtract(child.parent.state, child.state)
                         if child.parent.state[2] == 0:
@@ -63,5 +72,6 @@ def dfs(initial_state):
                         explored.append(child.state)
 
         else:
+            print("{} is killed! (Missionaries > Cannibals)".format(node.state))
             killed.append("\"" + str(node.state) + "\"")
     return
