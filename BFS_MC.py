@@ -62,6 +62,7 @@ def bfs(initial_state, mode="BFS"):
 
                         draw_legend(graph)
                         graph.write_png('MC_BFS.png')
+                        graph.write_pdf("MC_BFS.pdf")
 
                         return child.find_action_sequence()
                     if child.is_valid():

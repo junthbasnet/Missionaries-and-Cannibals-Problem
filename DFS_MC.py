@@ -65,6 +65,7 @@ def dfs(initial_state):
 
                         draw_legend(graph)
                         graph.write_png('MC_DFS.png')
+                        graph.write_pdf("MC_DFS.pdf")
 
                         return child.find_action_sequence()
                     if child.is_valid():
