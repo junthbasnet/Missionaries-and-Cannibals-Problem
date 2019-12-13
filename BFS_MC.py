@@ -43,7 +43,7 @@ def bfs(initial_state, mode="BFS"):
                 if child.state not in explored:
                     print("{0}      |       Depth: {1}".format(child.state, child.depth))
                     if child.goal_test():
-                        print("************************** Goal State Found! ****************************")
+                        print("*************************** Goal State Found! ****************************")
                         graph.add_node(child.graph_node)
                         diff = np.subtract(child.parent.state, child.state)
                         if child.parent.state[2] == 0:
